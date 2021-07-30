@@ -1,0 +1,51 @@
+version: "3"
+services:
+  database:
+    env_file:
+      - .env/development/database
+    image: postgres:12
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+  redis:
+    image: redis
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+  # selenium_chrome:
+  #   image: selenium/standalone-chrome-debug
+  #   logging:
+  #     driver: none
+  #   ports:
+  #     - "5900:5900"
+  app:
+    build: .
+    command:
+      [
+        "/wait/wait-for-postgres.sh",
+        "database",
+        "bin/rails",
+        "s",
+        "-b",
+        "0.0.0.0"
+      ]
+    depends_on:
+      - database
+      - redis
+    env_file:
+      - .env/development/database
+      - .env/development/app
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/usr/src/app
+      - gem_cache:/gems
+      - ./wait_scripts:/wait
+      # You can't share the tmp volume over two different machines
+      # - web_tmp:/usr/src/app/tmp
+volumes:
+  db_data:
+  gem_cache:
+  redis_data:
+  web_tmp:
