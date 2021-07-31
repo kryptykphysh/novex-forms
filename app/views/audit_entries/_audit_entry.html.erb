@@ -1,0 +1,11 @@
+<%= turbo_frame_tag dom_id(audit_entry) do %>
+  <div>
+    <h2><%= audit_entry.resource.titleize %> by <%= audit_entry.user.titleize %></h2>
+    <h3><%= time_ago_in_words audit_entry.created_at %> ago</h3>
+    <h4>Old Data</h4>
+    <p><%= JSON.pretty_generate audit_entry.old_data %></p>
+    <h4>New Data</h4>
+    <p><%= JSON.pretty_generate audit_entry.new_data %></p>
+    <hr>  
+  </div>
+<% end %>

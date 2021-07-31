@@ -1,0 +1,2 @@
+module AuditEntriesHelper
+end

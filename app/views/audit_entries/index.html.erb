@@ -1,0 +1,13 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Audit Entries</h1>
+
+<%= turbo_stream_from "audit_entries" %>
+
+<%= turbo_frame_tag "audit_entry_form" do %>
+  <%= render "audit_entries/form", audit_entry: @audit_entry %>
+<% end %>
+
+<%= turbo_frame_tag "audit_entries" do %>
+  <%= render @audit_entries %>
+<% end %>
