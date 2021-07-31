@@ -10,7 +10,7 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
   apt-transport-https \
   build-essential \
   nodejs \
-  postgresql-client-12 \
+  postgresql-client-13 \
   yarn \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
