@@ -2,7 +2,8 @@ version: "3"
 services:
   database:
     env_file:
-      - .env/development/database
+      # - .env/development/database
+      - .env.development.local
     image: postgres:13
     ports:
       - "5432:5432"
@@ -36,8 +37,9 @@ services:
       - database
       - redis
     env_file:
-      - .env/development/database
-      - .env/development/app
+      - .env.development.local
+        # - .env/development/database
+        # - .env/development/app
     ports:
       - "3000:3000"
     volumes:
